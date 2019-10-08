@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Message Board</title>
+</head>
+<style>
+    .container {
+        margin-left: 20px;
+        margin-top: 10px;
+    }
+
+    #formGroupExampleInput1 {
+        width: 200px;
+    }
+
+    #formGroupExampleInput2 {
+        width: 700px;
+        height: 80px;
+    }
+
+    .button {
+        margin-left: 560px;
+        border-radius: 12px;
+        background-color: greenyellow;
+    }
+
+    h1 {
+        border-bottom: 1px solid black;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <h1>The Dojo Message Board</h1>
+        <form action='/process_message%>' method='post'>
+            <div class="form-group">
+                <label for="formGroupExampleInput">Name</label>
+                <input type="text" class="form-control" id="formGroupExampleInput1" placeholder="Name" name='name'>
+            </div>
+            <div class="form-group">
+                <label for="formGroupExampleInput">Message</label>
+                <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Message"
+                    name='message'>
+            </div>
+            <p><input class="button" type='submit' value='Add Message'></p>
+        </form>
+        <div class="container">
+            <% for (var message of messages) { %>
+            <p>Name: <%= message.name%></p>
+                <p>Message: <%= message.message%></p>
+                    <% for (var comment of message.comments) { %>
+                    <p>Name: <%= comment.name%></p>
+                    <p>Comment: <%= comment.comment%></p>
+                    <% } %>
+                    <form action='/process_comment/<%= message.id %>' method='post'>
+                        <div class="form-group">
+                            <label for="formGroupExampleInput">Name</label>
+                            <input type="text" class="form-control" id="formGroupExampleInput1" placeholder="Name"
+                                name='name'>
+                        </div>
+                        <div class="form-group">
+                            <label for="formGroupExampleInput">Comment</label>
+                            <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Comment"
+                                name='comment'>
+                        </div>
+                        <p><input class="button" type='submit' value='Post a comment'></p>
+                    </form>
+                    <% } %>
+        </div>
+</body>
+
+</html>
